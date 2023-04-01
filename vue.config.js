@@ -7,5 +7,5 @@ module.exports = defineConfig({
 
 module.exports = {
   outputDir: 'docs',
-  publicPath: './',
+  publicPath: '/portofoio-pub',
 }
