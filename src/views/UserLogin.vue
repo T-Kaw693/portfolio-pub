@@ -14,12 +14,14 @@
                     <v-text-field
                     v-model="email"
                     :rules="emailRules"
+                    @keydown.enter="submit"
                     label="E-mail"
                     required
                     ></v-text-field>
 
                     <v-text-field
                     v-model="password"
+                    @keydown.enter="submit"
                     type="password"
                     label="password"
                     >
@@ -92,7 +94,7 @@ export default {
         value => {
         if (/.+@.+\..+/.test(value)) return true
 
-        return '不正'
+        return '不正な値です。'
         },
     ],
     password: '',
