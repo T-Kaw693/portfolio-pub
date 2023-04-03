@@ -1,13 +1,11 @@
 const { defineConfig } = require('@vue/cli-service')
+
 module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
-  ]
-})
-
-module.exports = {
+  ],
   outputDir: 'docs',
-  publicPath: '/portofoio-pub/',
+  publicPath: '/portfolio-pub/',
   devServer: {
     proxy: {
       '/api': {
@@ -19,4 +17,4 @@ module.exports = {
       }
     }
   }
-}
+})
