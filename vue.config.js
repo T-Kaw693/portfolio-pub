@@ -7,7 +7,7 @@ module.exports = defineConfig({
 
 module.exports = {
   outputDir: 'docs',
-  publicPath: '/portofoio-pub',
+  publicPath: '/portofoio-pub/',
   devServer: {
     proxy: {
       '/api': {

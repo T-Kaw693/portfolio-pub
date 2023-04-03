@@ -82,7 +82,7 @@ export default {
     drawer: null,
     links: [
       ['mdi-inbox-arrow-down', 'メイン', '/'],
-      ['mdi-send', 'アバウト', '/about'],
+      ['mdi-send', 'API実装', '/about'],
     ],
     auth: null,
     photoUrl: ''
