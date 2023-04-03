@@ -62,7 +62,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>Logout</v-list-item-title>
+              <v-list-item-title>ログアウト</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -81,17 +81,14 @@ export default {
   data: () => ({
     drawer: null,
     links: [
-      ['mdi-inbox-arrow-down', 'Inbox', '/'],
-      ['mdi-send', 'Send', '/about'],
-      ['mdi-delete', 'Trash', '/about'],
-      ['mdi-alert-octagon', 'Spam', '/about'],
+      ['mdi-inbox-arrow-down', 'メイン', '/'],
+      ['mdi-send', 'アバウト', '/about'],
     ],
     auth: null,
     photoUrl: ''
   }),
   methods: {
     logout() {
-      console.log("logout call")
       firebase.auth()
         .signOut()
         .then(() => {
