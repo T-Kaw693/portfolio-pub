@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     getSpots(area) {
-      axios.get(`/api/${area}A.xml`)
+      axios.get(`https://www.ezairyu.mofa.go.jp//opendata/country/${area}A.xml`)
         .then((response) => {
           const xmlss = response.data;
           console.log(xmlss); // XMLファイルをコンソールログする

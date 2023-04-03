@@ -6,15 +6,4 @@ module.exports = defineConfig({
   ],
   outputDir: 'docs',
   publicPath: '/portfolio-pub/',
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'https://www.ezairyu.mofa.go.jp',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/opendata/country'
-        }
-      }
-    }
-  }
 })
