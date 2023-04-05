@@ -1,73 +1,48 @@
 <template>
-    <v-navigation-drawer
-        v-model="drawer"
-        app
-      >
-        <v-sheet
-          color="grey lighten-4"
-          class="pa-4"
-        >
-        <v-avatar color="indigo">
+  <v-navigation-drawer v-model="drawer" permanent width="235" app>
+    <v-sheet color="grey lighten-4" class="pa-4">
+      <v-avatar color="indigo">
 
-          <input 
-          type="file"
-          ref="fileInput"
-          accept="image/jpeg, image/jpg, image/png"
-          style="display:none"
-          @change="updateIcon"
-          >
-          <v-icon 
-          dark
-          v-if="!photoUrl"
-          @click="changeIcon"
-          >
-            mdi-account-circle
+        <input type="file" ref="fileInput" accept="image/jpeg, image/jpg, image/png" style="display:none"
+          @change="updateIcon">
+        <v-icon dark v-if="!photoUrl" @click="changeIcon">
+          mdi-account-circle
+        </v-icon>
+
+        <img :src="photoUrl" alt="" v-if="photoUrl" @click="changeIcon">
+
+      </v-avatar>
+
+      <div class="username">{{ auth && auth.displayName }}</div>
+    </v-sheet>
+
+    <v-divider></v-divider>
+
+    <v-list>
+      <v-list-item v-for="[icon, text, to] in links" :key="icon" :to="to" link>
+        <v-list-item-icon>
+          <v-icon>{{ icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>{{ text }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item @click="logout">
+        <v-list-item-icon>
+          <v-icon color="blue">
+            mdi-logout
           </v-icon>
+        </v-list-item-icon>
 
-          <img
-          :src="photoUrl"
-          alt=""
-          v-if="photoUrl"
-          @click="changeIcon"
-          >
+        <v-list-item-content>
+          <v-list-item-title>ログアウト</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-        </v-avatar>
-  
-          <div class="username">{{auth && auth.displayName }}</div>
-        </v-sheet>
-  
-        <v-divider></v-divider>
-  
-        <v-list>
-          <v-list-item
-            v-for="[icon, text, to] in links"
-            :key="icon"
-            :to="to"
-            link
-          >
-            <v-list-item-icon>
-              <v-icon>{{ icon }}</v-icon>
-            </v-list-item-icon>
-  
-            <v-list-item-content>
-              <v-list-item-title>{{ text }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item @click="logout">
-            <v-list-item-icon>
-              <v-icon color="blue">
-                mdi-logout
-              </v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>ログアウト</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-        </v-list>
-    </v-navigation-drawer>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
@@ -83,6 +58,7 @@ export default {
     links: [
       ['mdi-inbox-arrow-down', 'メイン', '/'],
       ['mdi-send', 'API実装', '/about'],
+      ['mdi-antenna', '過去メセ', '/past']
     ],
     auth: null,
     photoUrl: ''
@@ -105,7 +81,7 @@ export default {
     updateIcon() {
       console.log("updateicon call")
       const user = this.getAuth()
-      if(!user) {
+      if (!user) {
         sessionStorage.removeItem('user')
         this.$router.push('/login')
       }
@@ -113,22 +89,21 @@ export default {
       const file = this.$refs.fileInput.files[0]
       const filePath = `user/${file.name}`
       console.log(file)
-      
+
       firebase.storage().ref()
         .child(filePath)
         .put(file)
         .then(async snapshot => {
-         console.log("snapshot",snapshot)
+          console.log("snapshot", snapshot)
 
           const photoUrl = await snapshot.ref.getDownloadURL()
           console.log("photoUrl", photoUrl)
 
           firebase.auth().onAuthStateChanged((user) => {
-            if(user) {
+            if (user) {
               user.updateProfile({
                 photoURL: photoUrl
               })
-
               this.auth.photoURL = photoUrl
               sessionStorage.setItem('user', JSON.stringify(this.auth))
               this.photoUrl = photoUrl

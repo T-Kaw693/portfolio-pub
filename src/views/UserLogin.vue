@@ -5,33 +5,15 @@
                 <v-card-title class="logintitle">Login</v-card-title>
                 <v-card-subtitle>ユーザー情報をご入力ください</v-card-subtitle>
                 <v-btn text color="light-blue" to="signup">新規登録はこちら</v-btn>
-                <v-form
-                ref="form"
-                v-model="valid"
-                lazy-validation
-                >
+                <v-form ref="form" v-model="valid" lazy-validation>
 
-                    <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    @keydown.enter="submit"
-                    label="E-mail"
-                    required
-                    ></v-text-field>
+                    <v-text-field v-model="email" :rules="emailRules" @keydown.enter="submit" label="E-mail"
+                        required></v-text-field>
 
-                    <v-text-field
-                    v-model="password"
-                    @keydown.enter="submit"
-                    type="password"
-                    label="password"
-                    >
+                    <v-text-field v-model="password" @keydown.enter="submit" type="password" label="password">
                     </v-text-field>
-                    
-                    <v-btn
-                    color="success"
-                    class="loginbtn"
-                    @click="submit"
-                    :disabled="isValid">
+
+                    <v-btn color="success" class="loginbtn" @click="submit" :disabled="isValid">
                         login
                     </v-btn>
 
@@ -39,27 +21,15 @@
                         clear
                     </v-btn>
 
-                    <v-alert
-                    dense
-                    text
-                    type="success"
-                    class="successmessage"
-                    v-if="message"
-                    >
-                    {{ message }}
+                    <v-alert dense text type="success" class="successmessage" v-if="message">
+                        {{ message }}
                     </v-alert>
 
-                    <v-alert
-                    dense
-                    outlined
-                    type="error"
-                    class="errormessage"
-                    v-if="errorMessage"
-                    >
-                    {{ errorMessage }}
+                    <v-alert dense outlined type="error" class="errormessage" v-if="errorMessage">
+                        {{ errorMessage }}
                     </v-alert>
 
-                </v-form> 
+                </v-form>
             </v-card>
         </div>
     </v-app>
@@ -69,40 +39,40 @@
 import firebase from "@/firebase/firebase"
 export default {
     data: () => ({
-    valid: false,
-    firstname: '',
-    lastname: '',
-    nameRules: [
-        value => {
-        if (value) return true
+        valid: false,
+        firstname: '',
+        lastname: '',
+        nameRules: [
+            value => {
+                if (value) return true
 
-        return 'Name is requred.'
-        },
-        value => {
-        if (value?.length <= 10) return true
+                return 'Name is requred.'
+            },
+            value => {
+                if (value?.length <= 10) return true
 
-        return 'Name must be less than 10 characters.'
-        },
-    ],
-    email: '',
-    emailRules: [
-        value => {
-        if (value) return true
+                return 'Name must be less than 10 characters.'
+            },
+        ],
+        email: '',
+        emailRules: [
+            value => {
+                if (value) return true
 
-        return 'メールアドレスを入力'
-        },
-        value => {
-        if (/.+@.+\..+/.test(value)) return true
+                return 'メールアドレスを入力'
+            },
+            value => {
+                if (/.+@.+\..+/.test(value)) return true
 
-        return '不正な値です。'
-        },
-    ],
-    password: '',
-    message: '',
-    errorMessage: ''
+                return '不正な値です。'
+            },
+        ],
+        password: '',
+        message: '',
+        errorMessage: ''
     }),
     mounted() {
-        if(localStorage.message) {
+        if (localStorage.message) {
             this.message = localStorage.message
             localStorage.message = ''
         }
@@ -144,7 +114,6 @@ export default {
 
 <style>
 .loginform {
-    margin: 150px;
     padding: 30px;
 }
 

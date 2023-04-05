@@ -13,7 +13,7 @@ export default {
       const snapshot = await roomRef.get()
 
       snapshot.docs.map(doc => {
-        const data = {...doc.data()}
+        const data = { ...doc.data() }
         data.id = doc.id
         this.rooms.push(data)
       })

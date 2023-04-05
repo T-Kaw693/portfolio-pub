@@ -6,6 +6,7 @@ import RoomList from '../views/RoomList.vue'
 import ChatBoard from '../views/ChatBoard.vue'
 import UserLogin from '../views/UserLogin.vue'
 import UserSignup from '../views/UserSignup.vue'
+import PastMessage from '../views/PastMessage.vue'
 // import firebase from "@/firebase/firebase"
 
 Vue.use(VueRouter)
@@ -39,7 +40,12 @@ const routes = [
     path: '/signup',
     name: 'UserSignup',
     component: UserSignup
-  }
+  },
+  {
+    path: '/past',
+    name: 'PastMessage',
+    component: PastMessage
+  },
 ]
 
 const router = new VueRouter({

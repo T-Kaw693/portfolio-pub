@@ -1,27 +1,32 @@
 <template>
-  <div class="container">
-    <h1>API機能実装</h1>
-    <p>「外務省 海外安全情報オープンデータ」のAPIを取得してみる。</p>
-    <p>セレクトボックスのoptionはjsonファイルをv-forで出力。</p>
-    <select v-model="selectedArea">
-      <option v-for="(area, index) in areas" :value="area.value" :key="index">{{ area.label }}</option>
-    </select>
-    <ul>
-      <li class="list" v-for="(riskInfo, index) in riskInfos" :key="index">
-        <h2>{{ riskInfo.title }}</h2>
-        <p>{{ riskInfo.leaveDate }}</p>
-        <p>{{ riskInfo.lead }}</p>
-        <p>{{ riskInfo.subText }}</p>
-        <a :href="riskInfo.url">{{ riskInfo.url }}</a>
-      </li>
-      <li v-if="riskInfos.length === 0">選択してください</li>
-    </ul>
-  </div>
+  <v-app id="about">
+    <AppSidebar />
+    <v-main>
+      <v-container>
+        <h1>API機能実装</h1>
+        <p>「外務省 海外安全情報オープンデータ」のAPIを取得してみる。<br>セレクトボックスのoptionはjsonファイルをv-forで出力。</p>
+        <select v-model="selectedArea">
+          <option v-for="(area, index) in areas" :value="area.value" :key="index">{{ area.label }}</option>
+        </select>
+        <ul>
+          <li class="list" v-for="(riskInfo, index) in riskInfos" :key="index">
+            <h2>{{ riskInfo.title }}</h2>
+            <p>{{ riskInfo.leaveDate }}</p>
+            <p>{{ riskInfo.lead }}</p>
+            <p>{{ riskInfo.subText }}</p>
+            <a :href="riskInfo.url">{{ riskInfo.url }}</a>
+          </li>
+          <li v-if="riskInfos.length === 0">選択してください</li>
+        </ul>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 import axios from 'axios';
 import areasData from '@/data/country.json';
+import AppSidebar from '@/components/layouts/AppSidebar'
 
 export default {
   data() {
@@ -32,7 +37,7 @@ export default {
     };
   },
   watch: {
-    selectedArea: function(newVal) {
+    selectedArea: function (newVal) {
       if (newVal < 1000) {
         newVal = ('000' + newVal).slice(-4);
       }
@@ -73,6 +78,9 @@ export default {
         });
     },
   },
+  components: {
+    AppSidebar
+  }
 };
 </script>
 
@@ -120,5 +128,4 @@ select:focus {
 option {
   font-weight: normal;
 }
-
 </style>

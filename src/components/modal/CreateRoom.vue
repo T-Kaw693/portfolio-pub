@@ -1,17 +1,8 @@
 <template>
   <v-row justify="center">
-    <v-dialog
-      v-model="dialog"
-      persistent
-      max-width="600px"
-    >
+    <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">
           Create Room
         </v-btn>
       </template>
@@ -23,18 +14,10 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field
-                v-model="name"
-                  label="Room Name*"
-                  required
-                ></v-text-field>
+                <v-text-field v-model="name" label="Room Name*" required></v-text-field>
               </v-col>
               <v-col cols="12">
-                  <v-file-input
-                  v-model="file"
-                  truncate-length="15"
-                  accept="image/*"
-                  ></v-file-input>
+                <v-file-input v-model="file" truncate-length="15" accept="image/*"></v-file-input>
               </v-col>
             </v-row>
           </v-container>
@@ -42,18 +25,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
+          <v-btn color="blue darken-1" text @click="dialog = false">
             Close
           </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="onSubmit"
-          >
+          <v-btn color="blue darken-1" text @click="onSubmit">
             Save
           </v-btn>
         </v-card-actions>
@@ -76,18 +51,18 @@ export default {
   }),
   methods: {
     async onSubmit() {
-      console.log("onSubmit calls",this.name, this.file)
-      
+      console.log("onSubmit calls", this.name, this.file)
+
       let thumbnailUrl = ""
-      if(this.file) {
+      if (this.file) {
         const filePath = `room/${this.file.name}`
         await firebase.storage().ref()
-        .child(filePath)
-        .put(this.file)
-        .then(async snapshot => {
-          thumbnailUrl = await snapshot.ref.getDownloadURL()
-          console.log("thumbnailUrl",thumbnailUrl)
-        })
+          .child(filePath)
+          .put(this.file)
+          .then(async snapshot => {
+            thumbnailUrl = await snapshot.ref.getDownloadURL()
+            console.log("thumbnailUrl", thumbnailUrl)
+          })
       }
       const roomRef = firebase.firestore().collection('rooms')
       await roomRef.add({
@@ -95,16 +70,16 @@ export default {
         thumbnailUrl: thumbnailUrl,
         createAt: firebase.firestore.Timestamp.now()
       })
-      .then(result => {
-        console.log("success to create room", result)
-        this.dialog = false
-          
-        // 作成したルームのIDを取得する
-        const roomId = result.id
+        .then(result => {
+          console.log("success to create room", result)
+          this.dialog = false
 
-        // チャットルーム画面に遷移する
-        this.$router.push(`/chat?room_id=${roomId}`)
-      })
+          // 作成したルームのIDを取得する
+          const roomId = result.id
+
+          // チャットルーム画面に遷移する
+          this.$router.push(`/chat?room_id=${roomId}`)
+        })
     }
   },
 }
