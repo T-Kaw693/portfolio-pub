@@ -29,7 +29,7 @@
                         <span class="message__txt">{{ data.message }}</span>
                       </v-list-item-subtitle>
 
-                      <v-btn class="abs-i" icon @click="deleteMessage(data.id)">
+                      <v-btn v-if="data.name === auth.displayName" class="abs-i" icon @click="deleteMessage(data.id)">
                         <v-icon>mdi-delete</v-icon>
                       </v-btn>
 
@@ -107,7 +107,7 @@ export default {
       ['mdi-delete', 'Trash'],
       ['mdi-alert-octagon', 'Spam'],
     ],
-    auth: null,
+    // auth: null,
     // invalid: false
   }),
   computed: {
@@ -117,6 +117,14 @@ export default {
         return true;
       }
       return false;
+    },
+    auth: {
+      get() {
+        return JSON.parse(sessionStorage.getItem('user'))
+      },
+      set(value) {
+        sessionStorage.setItem('user', JSON.stringify(value))
+      }
     }
   },
   methods: {
