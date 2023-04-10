@@ -17,17 +17,18 @@
       <v-container>
         <v-row>
           <v-col v-for="room in rooms" :key="room.id" cols="4">
-            <v-avatar class="mb-4" color="grey darken-1" size="64">
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" v-if="!room.thumbnailUrl">
-              <img :src="room.thumbnailUrl" alt="John" v-if="room.thumbnailUrl">
-            </v-avatar>
-            <v-card-title class="center">
-              {{ room.name }}
-            </v-card-title>
-            <v-card-actions class="no-flex">
-              <v-btn text color="primary" :to="{ path: 'chat', query: { room_id: room.id } }">Enter Room</v-btn>
-              <v-btn text color="error" @click="deleteRoom(room.id)">Delete Room</v-btn>
-            </v-card-actions>
+            <v-hover>
+              <template #default="{ hover }">
+                <div class="no-flex relative hover card" @click="enterRoom(room.id)">
+                  <v-avatar class="mb-4" color="grey darken-1" size="64">
+                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" v-if="!room.thumbnailUrl">
+                    <img :src="room.thumbnailUrl" alt="John" v-if="room.thumbnailUrl">
+                  </v-avatar>
+                  <p>{{ room.name }}</p>
+                  <v-icon v-show="hover" class="delete-icon" @click.stop="deleteRoom(room.id)">mdi-close</v-icon>
+                </div>
+              </template>
+            </v-hover>
           </v-col>
         </v-row>
       </v-container>
@@ -47,7 +48,8 @@ export default {
     CreateRoom
   },
   data: () => ({
-    rooms: []
+    rooms: [],
+    isHovering: null
   }),
   mounted() {
     this.getRooms()
@@ -61,6 +63,9 @@ export default {
         // 削除したルームをrooms配列から削除する
         this.rooms = this.rooms.filter(room => room.id !== roomId)
       }
+    },
+    enterRoom(roomId) {
+      this.$router.push({ path: 'chat', query: { room_id: roomId } })
     }
   },
 }
@@ -73,5 +78,36 @@ export default {
 
 .center {
   justify-content: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.delete-icon {
+  position: absolute !important;
+  right: 20px;
+  top: 0;
+  margin: 8px;
+  color: red !important;
+  cursor: pointer;
+}
+
+.v-main__wrap {
+  padding-top: 60px;
+  padding-bottom: 50px;
+}
+
+.hover {
+  transition: background-color 0.3s ease;
+}
+
+.hover:hover {
+  background-color: #f2f2f2;
+}
+
+.card {
+  padding: 20px 0;
+  cursor: pointer;
 }
 </style>

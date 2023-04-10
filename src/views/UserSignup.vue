@@ -4,7 +4,7 @@
             <v-card class="loginform">
                 <v-card-title class="logintitle">Signup</v-card-title>
                 <v-card-subtitle>ユーザー情報をご入力ください</v-card-subtitle>
-                <v-btn text color="light-blue" to="login">ログイン画面ははこちら</v-btn>
+                <v-btn text color="light-blue" to="login">ログイン画面はこちら</v-btn>
                 <v-form ref="form" v-model="valid" lazy-validation>
 
                     <v-text-field v-model="name" :rules="nameRules" label="Username" required></v-text-field>

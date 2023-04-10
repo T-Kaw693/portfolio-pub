@@ -5,7 +5,7 @@
     <v-main>
       <v-container class="py-8 px-6" fluid>
         <h1>{{ room ? room.name : "" }}</h1>
-        <v-row>
+        <v-row class="mt-4">
           <v-col v-for="card in cards" :key="card" cols="12">
             <v-card>
               <v-subheader>{{ card }}</v-subheader>

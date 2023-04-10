@@ -138,4 +138,8 @@ export default {
 .errormessage {
     margin-top: 20px;
 }
+
+#app .v-application--wrap {
+    justify-content: center;
+}
 </style>

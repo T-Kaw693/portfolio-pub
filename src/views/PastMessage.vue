@@ -5,22 +5,29 @@
             <v-container>
                 <h1>過去のメッセージ一覧</h1>
                 <p>ログインしているユーザーのメッセージを絞り込み</p>
-                <v-card class="card-message" v-for="(room, index) in rooms" :key="index">
-                    <h2>チャットルーム名：{{ room.name }}</h2>
-                    <template v-if="filteredMessages(room.messages).length > 0">
-                        <p>メッセージ一覧</p>
-                        <ul>
-                            <li v-for="(message, index) in filteredMessages(room.messages)" :key="index">
-                                {{ new Date(message.createdAt.toDate()).toLocaleString() }} 「{{ message.message }}」
-                            </li>
-                        </ul>
-                    </template>
-                    <template v-else>
-                        <p style="color: red;">このチャットルームにはまだメッセージを送信してません</p>
-                    </template>
-                    <router-link v-if="room.messages.length > 0"
-                        :to="{ name: 'ChatBoard', query: { room_id: room.id } }">チャットルーム「{{ room.name }}」 へ移動</router-link>
-                </v-card>
+                <p class="lead">{{ auth.displayName }}さんのメッセージ一覧</p>
+                <template v-if="rooms.length > 0">
+                    <v-card class="card-message" v-for="(room, index) in rooms" :key="index">
+                        <h2>チャットルーム名：{{ room.name }}</h2>
+                        <template v-if="filteredMessages(room.messages).length > 0">
+                            <p>メッセージ一覧</p>
+                            <ul>
+                                <li v-for="(message, index) in filteredMessages(room.messages)" :key="index">
+                                    {{ new Date(message.createdAt.toDate()).toLocaleString() }} 「{{ message.message }}」
+                                </li>
+                            </ul>
+                        </template>
+                        <template v-else>
+                            <p style="color: red;">このチャットルームにはまだメッセージを送信してません</p>
+                        </template>
+                        <router-link v-if="room.messages.length > 0"
+                            :to="{ name: 'ChatBoard', query: { room_id: room.id } }">チャットルーム「{{ room.name }}」
+                            へ移動</router-link>
+                    </v-card>
+                </template>
+                <template v-else>
+                    <p>該当するルームが無いようです。</p>
+                </template>
             </v-container>
         </v-main>
     </v-app>
@@ -102,6 +109,10 @@ export default {
     margin-top: 50px;
 }
 
+.card-message:first-of-type {
+    margin-top: 0;
+}
+
 .card-message p {
     margin-top: 10px;
     margin-bottom: 0;
@@ -116,6 +127,12 @@ export default {
 .card-message a {
     margin-top: 20px;
     display: inline-block;
+}
+
+.lead {
+    font-size: 25px;
+    line-height: 1.5;
+    margin-top: 20px;
 }
 </style>
   
