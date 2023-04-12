@@ -58,7 +58,8 @@ export default {
     links: [
       ['mdi-inbox-arrow-down', 'メイン', '/'],
       ['mdi-send', 'API実装', '/about'],
-      ['mdi-antenna', '過去メセ', '/past']
+      ['mdi-antenna', 'メセ一覧', '/past'],
+      ['mdi-check-circle', 'gsap', '/animation']
     ],
     auth: null,
     photoUrl: ''

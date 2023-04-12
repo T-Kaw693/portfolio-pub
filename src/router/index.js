@@ -7,6 +7,7 @@ import ChatBoard from '../views/ChatBoard.vue'
 import UserLogin from '../views/UserLogin.vue'
 import UserSignup from '../views/UserSignup.vue'
 import PastMessage from '../views/PastMessage.vue'
+import AnimationPage from '../views/AnimationPage.vue'
 // import firebase from "@/firebase/firebase"
 
 Vue.use(VueRouter)
@@ -45,6 +46,11 @@ const routes = [
     path: '/past',
     name: 'PastMessage',
     component: PastMessage
+  },
+  {
+    path: '/animation',
+    name: 'AnimationPage',
+    component: AnimationPage
   },
 ]
 
