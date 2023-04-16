@@ -30,12 +30,14 @@
                 </template>
             </v-container>
         </v-main>
+        <LinkTop />
     </v-app>
 </template>
   
 <script>
 import firebase from "@/firebase/firebase"
 import AppSidebar from '@/components/layouts/AppSidebar'
+import LinkTop from '@/components/parts/LinkTop'
 
 export default {
     data() {
@@ -97,7 +99,8 @@ export default {
         }
     },
     components: {
-        AppSidebar
+        AppSidebar,
+        LinkTop
     }
 }
 </script>

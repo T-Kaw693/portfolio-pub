@@ -27,12 +27,14 @@
                 <h2 class="common__title">アニメーションなし<br>エリア</h2>
             </div>
         </section>
+        <LinkTop />
     </div>
 </template>
   
 <script>
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import LinkTop from '@/components/parts/LinkTop'
 
 export default {
     mounted() {
@@ -54,6 +56,9 @@ export default {
             });
         });
     },
+    components: {
+        LinkTop
+    }
 };
 </script>
   
@@ -138,6 +143,10 @@ body {
     width: 600px;
     height: 600px;
     border: 1px solid #000;
+}
+
+.v-btn:not(.v-btn--outlined).primary {
+    color: #000 !important;
 }
 </style>
   

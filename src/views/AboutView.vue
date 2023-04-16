@@ -3,8 +3,8 @@
     <AppSidebar />
     <v-main>
       <v-container>
-        <h1>API機能実装</h1>
-        <p>「外務省 海外安全情報オープンデータ」のAPIを取得してみる。<br>セレクトボックスのoptionはjsonファイルをv-forで出力。</p>
+        <h1>API実装</h1>
+        <p>「外務省 海外安全情報オープンデータ」のAPIを叩いてみる。<br>セレクトボックスのoptionはjsonファイルをv-forで出力。</p>
         <select v-model="selectedArea">
           <option v-for="(area, index) in areas" :value="area.value" :key="index">{{ area.label }}</option>
         </select>
@@ -20,6 +20,7 @@
         </ul>
       </v-container>
     </v-main>
+    <LinkTop />
   </v-app>
 </template>
 
@@ -27,6 +28,7 @@
 import axios from 'axios';
 import areasData from '@/data/country.json';
 import AppSidebar from '@/components/layouts/AppSidebar'
+import LinkTop from '@/components/parts/LinkTop'
 
 export default {
   data() {
@@ -79,7 +81,8 @@ export default {
     },
   },
   components: {
-    AppSidebar
+    AppSidebar,
+    LinkTop
   }
 };
 </script>

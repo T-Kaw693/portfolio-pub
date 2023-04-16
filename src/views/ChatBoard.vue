@@ -53,12 +53,14 @@
         clear
       </v-btn>
     </v-main>
+    <LinkTop />
   </v-app>
 </template>
   
 <script>
 import firebase from "@/firebase/firebase"
 import AppSidebar from '@/components/layouts/AppSidebar'
+import LinkTop from '@/components/parts/LinkTop'
 export default {
   async created() {
     this.roomId = this.$route.query.room_id;
@@ -163,7 +165,8 @@ export default {
     }
   },
   components: {
-    AppSidebar
+    AppSidebar,
+    LinkTop
   }
 }
 </script>

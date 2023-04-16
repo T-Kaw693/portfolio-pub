@@ -5,6 +5,7 @@
                 <v-card-title class="logintitle">Login</v-card-title>
                 <v-card-subtitle>ユーザー情報をご入力ください</v-card-subtitle>
                 <v-btn text color="light-blue" to="signup">新規登録はこちら</v-btn>
+                <span></span>
                 <v-form ref="form" v-model="valid" lazy-validation>
 
                     <v-text-field v-model="email" :rules="emailRules" @keydown.enter="submit" label="E-mail"

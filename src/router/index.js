@@ -54,10 +54,11 @@ const routes = [
   },
 ]
 
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 router.beforeEach((to, from, next) => {
@@ -73,16 +74,6 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (!user) {
-    //     next({
-    //       path: '/login',
-    //       query: { redirect: to.fullPath }
-    //     })
-    //   } else {
-    //     next()
-    //   }
-    // })
   } else {
     next() // next() を常に呼び出すようにしてください!
   }
